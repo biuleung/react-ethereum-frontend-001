@@ -1,0 +1,21 @@
+// Variable overrides
+
+
+$theme-colors: (
+//   "primary":    $primary,
+//   "secondary":  $secondary,
+//   "success":    $success,
+//   "info":       $info,
+//   "warning":    $warning,
+//   "danger":     $danger,
+//   "light":      $light,
+//   "dark":       $dark
+);
+
+.c-sidebar {
+    background-color: rgb(133, 135, 136) !important;
+} 
+
+.c-sidebar .c-sidebar-nav-link:hover {
+    background: #575757 !important;
+}

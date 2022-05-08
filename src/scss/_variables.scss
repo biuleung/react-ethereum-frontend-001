@@ -1,9 +1,11 @@
 // Variable overrides
 
+$primary: #044daa;
+$secondary: #3ebdeb;
 
 $theme-colors: (
-//   "primary":    $primary,
-//   "secondary":  $secondary,
+  "primary":    $primary,
+  "secondary":  $secondary,
 //   "success":    $success,
 //   "info":       $info,
 //   "warning":    $warning,
@@ -11,6 +13,11 @@ $theme-colors: (
 //   "light":      $light,
 //   "dark":       $dark
 );
+
+:root {
+    --main-gradient-color: linear-gradient(to right,var(--secondary),var(--primary));
+    --main-deepest-color: var(--primary);
+}
 
 .c-sidebar {
     background-color: rgb(133, 135, 136) !important;

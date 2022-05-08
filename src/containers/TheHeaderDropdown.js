@@ -8,23 +8,30 @@ import {
   CImg
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
+import { useSelector } from 'react-redux'
+import Auth from 'src/reusable/auth/auth'
 
 const TheHeaderDropdown = () => {
+  const loginInfo = useSelector(state => state.loginInfo);
+
   return (
     <CDropdown
       inNav
       className="c-header-nav-items mx-2"
       direction="down"
     >
-      <CDropdownToggle className="c-header-nav-link" caret={false}>
-        <div className="c-avatar">
-          <CImg
-            src={'avatars/default.jpg'}
-            className="c-avatar-img"
-            alt="admin@bootstrapmaster.com"
-          />
-        </div>
-      </CDropdownToggle>
+      <div className='d-flex align-items-center'>
+        <CDropdownToggle className="c-header-nav-link" caret={false}>
+          <div className="c-avatar">
+            <CImg
+              src={'avatars/default.jpg'}
+              className="c-avatar-img"
+              alt="admin@bootstrapmaster.com"
+            />
+          </div>
+        </CDropdownToggle>
+        <Auth />
+      </div>
       <CDropdownMenu className="pt-0" placement="bottom-end">
         <CDropdownItem
           header

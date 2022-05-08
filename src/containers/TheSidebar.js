@@ -14,15 +14,18 @@ import {
 
 // sidebar nav config
 import navigation from './_nav'
+import { siderbarShowSlice } from 'src/store'
 
 const TheSidebar = () => {
-  const dispatch = useDispatch()
-  const show = useSelector(state => state.sidebarShow)
+  const dispatch = useDispatch();
+
+  const { toggle } = siderbarShowSlice.actions;
+  const show = useSelector(state => state.sidebarShow);
 
   return (
     <CSidebar
       show={show}
-      onShowChange={(val) => dispatch({type: 'set', sidebarShow: val })}
+      onShowChange={() => dispatch(toggle())}
     >
       <CSidebarBrand className="d-md-down-none" to="/">
         <div>
@@ -41,7 +44,7 @@ const TheSidebar = () => {
           }}
         />
       </CSidebarNav>
-      <CSidebarMinimizer className="c-d-md-down-none"/>
+      <CSidebarMinimizer className="c-d-md-down-none" />
     </CSidebar>
   )
 }

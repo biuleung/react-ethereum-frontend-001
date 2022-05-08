@@ -1,5 +1,5 @@
 import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import {
   CHeader,
   CToggler,
@@ -17,19 +17,19 @@ import routes from '../routes'
 import {
   TheHeaderDropdown,
 } from './index'
+import { siderbarShowSlice } from 'src/store'
 
 const TheHeader = () => {
-  const dispatch = useDispatch()
-  const sidebarShow = useSelector(state => state.sidebarShow)
+  const dispatch = useDispatch();
 
-  const toggleSidebar = () => {
-    const val = [true, 'responsive'].includes(sidebarShow) ? false : 'responsive'
-    dispatch({ type: 'set', sidebarShow: val })
+  const { toggle, toggleMobile } = siderbarShowSlice.actions;
+
+  function toggleSidebar() {
+    dispatch(toggle());
   }
 
-  const toggleSidebarMobile = () => {
-    const val = [false, 'responsive'].includes(sidebarShow) ? true : 'responsive'
-    dispatch({ type: 'set', sidebarShow: val })
+  function toggleSidebarMobile() {
+    dispatch(toggleMobile());
   }
 
   return (

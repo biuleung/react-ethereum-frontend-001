@@ -1,0 +1,12 @@
+.auth {
+  /* width: fit-content; */
+  /* height: 100vh; */
+  margin: 0 auto;
+  /* flex-direction: column; */
+  display: flex;
+  justify-content: flex-end;
+}
+
+.logoContainer {
+  /* width: fit-content; */
+}

@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import { HashRouter, Route, Switch } from 'react-router-dom';
 import './scss/style.scss';
+import { loginInfoSlice } from './store';
 
 const loading = (
   <div className="pt-3 text-center">
@@ -18,14 +20,19 @@ const Page404 = React.lazy(() => import('./views/pages/page404/Page404'));
 const Page500 = React.lazy(() => import('./views/pages/page500/Page500'));
 
 function App() {
-  const [loginAddress, setLoginAddress] = useState();
 
-  // if (!loginAddress) {
+  const loginInfo = useSelector(state => state.loginInfo);
+  const { updateAddress } = loginInfoSlice.actions;
+
+  // if (loginInfo.address === '0x') {
   //   return (
   //     <React.Suspense fallback={loading}>
-  //       <Login setLoginAddress={setLoginAddress} />
+  //       <Login updateAddress={updateAddress} />
   //     </React.Suspense>
   //   )
+  // } else {
+  //   // logged in
+  //   console.log('logged in');
   // }
 
   return (

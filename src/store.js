@@ -5,7 +5,8 @@ const listenerMiddleware = createListenerMiddleware();
 
 const initialState = {
   login: {
-    address: '0x'
+    address: '0x',
+    isRegistered: false,
   },
   sidebarShow: 'responsive'
 }
@@ -15,7 +16,11 @@ export const loginInfoSlice = createSlice({
   initialState: initialState.login,
   reducers: {
     updateAddress: (state, action) => {
-      return state = { address: action.payload.address };
+      return state = {
+        ...state,
+        address: action.payload.address || initialState.login.address,
+        isRegistered: action.payload.isRegistered || initialState.login.isRegistered
+      };
     }
   }
 })

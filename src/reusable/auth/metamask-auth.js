@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loginInfoSlice } from "src/store";
 import styles from "./metamask-auth.module.css";
+import RegistrationCheck from "./registration-check";
 
 const { updateAddress } = loginInfoSlice.actions;
 
@@ -13,25 +14,35 @@ async function connect(dispatch) {
 
     if (!window.ethereum) {
         alert("Get MetaMask!");
+        dispatch(updateAddress({ address: '0x' }));
         return;
     }
 
     const accounts = await window.ethereum.request({
         method: "eth_requestAccounts",
     });
-    dispatch(updateAddress({ address: accounts[0] }))
+
+    await RegistrationCheck(accounts[0])
+        ? dispatch(updateAddress({ address: accounts[0], isRegistered: true }))
+        : dispatch(updateAddress({ address: accounts[0], isRegistered: false }));
 }
 
 async function checkIfWalletIsConnected(dispatch) {
     if (window.ethereum) {
+        setUpEthereumEvent(dispatch);
         const accounts = await window.ethereum.request({
             method: "eth_accounts",
         });
 
         if (accounts.length > 0) {
-            dispatch(updateAddress({ address: accounts[0] }));
+            await RegistrationCheck(accounts[0])
+                ? dispatch(updateAddress({ address: accounts[0], isRegistered: true }))
+                : dispatch(updateAddress({ address: accounts[0], isRegistered: false }));
             setUpEthereumEvent(dispatch);
             return;
+        }
+        else {
+            dispatch(updateAddress({ address: '0x' }))
         }
 
         if (isMobileDevice()) {
@@ -40,12 +51,17 @@ async function checkIfWalletIsConnected(dispatch) {
     }
 }
 
-const accountWasChanged = (dispatch, accounts) => {
+const accountWasChanged = async (dispatch, accounts) => {
     if (accounts.length > 0) {
-        dispatch(updateAddress({ address: accounts[0] }))
-    } else {
+        // dispatch(updateAddress({ address: accounts[0] }));
+        await RegistrationCheck(accounts[0])
+            ? dispatch(updateAddress({ address: accounts[0], isRegistered: true }))
+            : dispatch(updateAddress({ address: accounts[0], isRegistered: false }));
+    }
+    else {
         dispatch(updateAddress({ address: '0x' }))
     }
+
 }
 
 const clearAccount = (dispatch) => {
@@ -80,16 +96,35 @@ export default function MetaMaskAuth() {
     }, [dispatch]);
 
     const loginInfo = useSelector(state => state.loginInfo);
+    useEffect(() => {
+        checkIfWalletIsConnected(dispatch);
 
-    return loginInfo.address && loginInfo.address !== '0x' ? (
-        <div className="mr-1">
-            <Address userAddress={loginInfo.address} />
-        </div>
-    ) : (
-        <Connect setUserAddress={dispatch} />
-    );
+        // return () => {
+        //     // removeEthereumEvent();
+        // }
+    }, [dispatch]);
+
+    switch (loginInfo.address && loginInfo.address !== '0x') {
+        case true:
+            if (loginInfo.isRegistered === true) {
+                return (
+                    <div className="mr-1">
+                        <Address userAddress={loginInfo.address} />
+                    </div>
+                )
+            } else {
+                return (
+                    <div>Signup</div>
+                )
+            }
+        case false:
+            return (
+                <Connect setUserAddress={dispatch} />
+            )
+        default:
+            break;
+    }
 }
-
 
 function Connect({ setUserAddress }) {
     if (isMobileDevice()) {

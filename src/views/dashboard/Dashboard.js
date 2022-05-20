@@ -4,8 +4,8 @@ const Dashboard = () => {
 
   return (
     <>
-      Dashboard works
       <div>
+        Dashboard works
       </div>
     </>
   )

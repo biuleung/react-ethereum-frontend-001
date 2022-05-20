@@ -1,26 +1,27 @@
-import { configureStore, createListenerMiddleware, createSlice } from '@reduxjs/toolkit';
+import { configureStore, createSlice } from '@reduxjs/toolkit';
 import { combineReducers } from "redux";
 
-const listenerMiddleware = createListenerMiddleware();
-
 const initialState = {
+  ERCProvider: {
+    provider: {}
+  },
   login: {
     address: '0x',
     isRegistered: false,
   },
-  sidebarShow: 'responsive'
+  sidebarShow: 'responsive',
+  videos: { info: [{}], tags: [] }
 }
 
-export const loginInfoSlice = createSlice({
-  name: 'loginInfo',
-  initialState: initialState.login,
+export const ERCProviderSlice = createSlice({
+  name: "ERCProvider",
+  initialState: initialState.ERCProvider,
   reducers: {
-    updateAddress: (state, action) => {
+    setProvider: (state, action) => {
       return state = {
         ...state,
-        address: action.payload.address || initialState.login.address,
-        isRegistered: action.payload.isRegistered || initialState.login.isRegistered
-      };
+        provider: action.payload || initialState.ERCProvider.provider
+      }
     }
   }
 })
@@ -38,14 +39,59 @@ export const siderbarShowSlice = createSlice({
   }
 });
 
+export const loginInfoSlice = createSlice({
+  name: 'loginInfo',
+  initialState: initialState.login,
+  reducers: {
+    updateAddress: (state, action) => {
+      return state = {
+        ...state,
+        address: action.payload.address || initialState.login.address,
+        isRegistered: action.payload.isRegistered || initialState.login.isRegistered
+      };
+    }
+  }
+})
+
+export const videosSlice = createSlice({
+  name: 'videosInfo',
+  initialState: initialState.videos,
+  reducers: {
+    setAllVideos: (state, action) => {
+      return state = {
+        ...state,
+        allVideos: action.payload || initialState.videos.info
+      }
+    },
+    setSelectedVideos: (state, action) => {
+      return state = {
+        ...state,
+        selectedVideos: action.payload || initialState.videos.info
+      }
+    },
+    setTags: (state, action) => {
+      return state = {
+        ...state,
+        tags: action.payload || initialState.videos.tags
+      }
+    }
+  }
+})
+
 
 const reducer = combineReducers({
+  ERCProvider: ERCProviderSlice.reducer,
   sidebarShow: siderbarShowSlice.reducer,
-  loginInfo: loginInfoSlice.reducer
+  loginInfo: loginInfoSlice.reducer,
+  videosInfo: videosSlice.reducer
 })
 
 const store = configureStore({
-  reducer: reducer
+  reducer: reducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    })
 });
 
 export default store

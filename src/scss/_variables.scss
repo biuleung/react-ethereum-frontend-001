@@ -26,3 +26,25 @@ $theme-colors: (
 .c-sidebar .c-sidebar-nav-link:hover {
     background: #575757 !important;
 }
+
+/**
+ * z-index
+ */
+ $stai-z-index-progress-bar: 990;
+ $stai-z-index-navbar: 999;
+ $stai-z-index-popover: 1060;
+
+/**
+* media width
+*/
+ $stai-media-query-min-width-xs: 0px;
+ $stai-media-query-min-width-sm: 576px;
+ $stai-media-query-min-width-md: 768px;
+ $stai-media-query-min-width-lg: 992px;
+ $stai-media-query-min-width-xl: 1200px;
+
+ @media screen and (max-width: 500px) {
+    .c-main {
+        padding-top: 0.5rem;
+    }
+  }

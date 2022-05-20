@@ -1,0 +1,2 @@
+(this["webpackJsonp@coreui/coreui-free-react-admin-template"]=this["webpackJsonp@coreui/coreui-free-react-admin-template"]||[]).push([[8],{777:function(e,r,t){"use strict";t.r(r);t(2);var c=t(24);r.default=function(){return Object(c.jsx)(c.Fragment,{children:Object(c.jsx)("div",{children:"Dashboard works"})})}}}]);
+//# sourceMappingURL=8.f5e562f4.chunk.js.map

@@ -5,60 +5,60 @@ import videoInfoListData from './videos-mock-api-data.json';
 import { videosSlice } from "src/store";
 import { useDispatch, useSelector } from "react-redux";
 import { DropdownSelect } from "src/reusable/base/dropdown-select";
+import { Calculate } from "../../../reusable/calculate";
 import { v4 } from 'uuid';
 //  https://multiselect-react-dropdown.vercel.app/?path=/docs/multiselect-dropdown--grouping
 
 const { setAllVideos, setSelectedVideos, setTags } = videosSlice.actions;
 
-const VideoItem = () => {
-    let selectedVideos = useSelector(state => state.videosInfo.selectedVideos);
+const VideoItem = ({ videoUrl }) => {
     return (
         <>
-            {selectedVideos && selectedVideos.map(element => {
-                return <div className='videos-box' key={v4()} >
-                    <iframe
-                        key={v4()}
-                        width="335px"
-                        height="250px"
-                        src={element.url}
-                        title="YouTube video player" frameBorder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen>
-                    </iframe>
-                </div>
-            })
-            }
+            <div className='videos-box' >
+                <iframe
+                    width="335px"
+                    height="250px"
+                    src={videoUrl}
+                    title="YouTube video player" frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen>
+                </iframe>
+            </div>
         </>
     )
 }
 
 const VideosBlock = () => {
+    let selectedVideos = useSelector(state => state.videosInfo.selectedVideos);
     return (
         <div className='vedeos-box-container'>
             <div className='vedeos-grid'>
-                <VideoItem key={v4()} />
+                {selectedVideos && selectedVideos.map(video =>
+                    <VideoItem key={v4()} videoUrl={video.url} />
+                )}
             </div>
         </div>
-
     )
 }
 
 const Videos = () => {
     const allTags = [];
-
+    let videoList;
     if (Array.isArray(videoInfoListData) && videoInfoListData.length) {
-        videoInfoListData.forEach(v => {
+        videoList = [...videoInfoListData];
+        videoList.forEach(v => {
             v.hasOwnProperty('tags') && v.tags.forEach(t => {
                 if (!allTags.find(ts => ts === t)) {
                     allTags.push(t);
                 }
             })
-        })
+        });
+        videoList = [...Calculate.shuffle(videoList)];
     }
 
     const dispatch = useDispatch();
-    dispatch(setAllVideos(videoInfoListData));
-    dispatch(setSelectedVideos(videoInfoListData));
+    dispatch(setAllVideos(videoList));
+    dispatch(setSelectedVideos(videoList));
     dispatch(setTags(allTags))
 
     const allVideos = useSelector(state => state.videosInfo.allVideos);
@@ -68,17 +68,24 @@ const Videos = () => {
         dispatch(setSelectedVideos(selectedVideos));
     }
 
+
+
     return (
         <>
             <div className="dropdown-list">
                 <DropdownSelect
                     itemList={allTags}
                     onSelect={onSelectionChange}
-                    onRemove={onSelectionChange} />
+                    onRemove={onSelectionChange}
+                    placeholder="Filter"
+                />
             </div>
-            <VideosBlock />
+            {videoList && videoList.length && <VideosBlock />}
         </>
     )
 }
+
+
+
 
 export default Videos

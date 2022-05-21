@@ -1,5 +1,5 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import {
   CHeader,
   CToggler,
@@ -10,7 +10,7 @@ import {
   CSubheader,
   CBreadcrumbRouter,
 } from '@coreui/react'
-
+import ProgressBar from 'react-bootstrap/ProgressBar'
 // routes config
 import routes from '../routes'
 
@@ -23,6 +23,9 @@ const TheHeader = () => {
   const dispatch = useDispatch();
 
   const { toggle, toggleMobile } = siderbarShowSlice.actions;
+  const progressBar = useSelector(state => state.progressBar);
+  let currentPercentage = progressBar.step / progressBar.fullCount * 100;
+  currentPercentage = currentPercentage < 10 ?? currentPercentage ? 10 : currentPercentage;
 
   function toggleSidebar() {
     dispatch(toggle());
@@ -33,46 +36,52 @@ const TheHeader = () => {
   }
 
   return (
-    <CHeader withSubheader>
-      <CToggler
-        inHeader
-        className="ml-md-3 d-lg-none"
-        onClick={toggleSidebarMobile}
-      />
-      <CToggler
-        inHeader
-        className="ml-3 d-md-down-none"
-        onClick={toggleSidebar}
-      />
-      <CHeaderBrand className="mx-auto d-lg-none" to="/">
-        Homepage
-      </CHeaderBrand>
-
-      <CHeaderNav className="d-md-down-none mr-auto">
-        <CHeaderNavItem className="px-3" >
-          <CHeaderNavLink to="/dashboard">Dashboard</CHeaderNavLink>
-        </CHeaderNavItem>
-        <CHeaderNavItem className="px-3">
-          <CHeaderNavLink to="/users">Users</CHeaderNavLink>
-        </CHeaderNavItem>
-        <CHeaderNavItem className="px-3">
-          <CHeaderNavLink>Settings</CHeaderNavLink>
-        </CHeaderNavItem>
-      </CHeaderNav>
-
-      <CHeaderNav className="px-3">
-        {false ? 'Login' : <TheHeaderDropdown />}
-      </CHeaderNav>
-
-      <CSubheader className="px-3 justify-content-between">
-        <CBreadcrumbRouter
-          className="border-0 c-subheader-nav m-0 px-0 px-md-3"
-          routes={routes}
+    <>
+      <CHeader withSubheader>
+        <CToggler
+          inHeader
+          className="ml-md-3 d-lg-none"
+          onClick={toggleSidebarMobile}
         />
-        <div className="d-md-down-none mfe-2 c-subheader-nav">
-        </div>
-      </CSubheader>
-    </CHeader>
+        <CToggler
+          inHeader
+          className="ml-3 d-md-down-none"
+          onClick={toggleSidebar}
+        />
+        <CHeaderBrand className="mx-auto d-lg-none" to="/">
+          Homepage
+        </CHeaderBrand>
+
+        <CHeaderNav className="d-md-down-none mr-auto">
+          <CHeaderNavItem className="px-3" >
+            <CHeaderNavLink to="/dashboard">Dashboard</CHeaderNavLink>
+          </CHeaderNavItem>
+          <CHeaderNavItem className="px-3">
+            <CHeaderNavLink to="/users">Users</CHeaderNavLink>
+          </CHeaderNavItem>
+          <CHeaderNavItem className="px-3">
+            <CHeaderNavLink>Settings</CHeaderNavLink>
+          </CHeaderNavItem>
+        </CHeaderNav>
+
+        <CHeaderNav className="px-3">
+          <TheHeaderDropdown></TheHeaderDropdown>
+        </CHeaderNav>
+
+        <CSubheader className="px-3 justify-content-between">
+          <CBreadcrumbRouter
+            className="border-0 c-subheader-nav m-0 px-0 px-md-3"
+            routes={routes}
+          />
+          <div className="d-md-down-none mfe-2 c-subheader-nav">
+          </div>
+        </CSubheader>
+      </CHeader>
+      <ProgressBar
+        animated
+        now={currentPercentage}
+        hidden={currentPercentage >= 100} />
+    </>
   )
 }
 

@@ -1,7 +1,8 @@
 // Variable overrides
-
-$primary: #044daa;
-$secondary: #3ebdeb;
+$primary: #2DBEF0;
+$secondary: #5acfc7;
+$dark: #858788;
+$darker: #575757;
 
 $theme-colors: (
   "primary":    $primary,
@@ -11,7 +12,8 @@ $theme-colors: (
 //   "warning":    $warning,
 //   "danger":     $danger,
 //   "light":      $light,
-//   "dark":       $dark
+  "dark":       $dark,
+  "darker": $darker
 );
 
 :root {
@@ -20,30 +22,41 @@ $theme-colors: (
 }
 
 .c-sidebar {
-    background-color: rgb(133, 135, 136) !important;
+    background-color: var(--dark) !important;
 } 
 
 .c-sidebar .c-sidebar-nav-link:hover {
-    background: #575757 !important;
+    background: var(--darker) !important;
+}
+
+.dropdown-list .highlightOption,
+.dropdown-list .multiSelectContainer li:hover,
+.dropdown-list .chip
+  { 
+	background: var(--secondary) !important;
+  }
+
+.progress {
+  height: 0.5rem;
 }
 
 /**
  * z-index
  */
- $stai-z-index-progress-bar: 990;
- $stai-z-index-navbar: 999;
- $stai-z-index-popover: 1060;
+ $z-index-progress-bar: 990;
+ $z-index-navbar: 999;
+ $z-index-popover: 1060;
 
 /**
 * media width
 */
- $stai-media-query-min-width-xs: 0px;
- $stai-media-query-min-width-sm: 576px;
- $stai-media-query-min-width-md: 768px;
- $stai-media-query-min-width-lg: 992px;
- $stai-media-query-min-width-xl: 1200px;
+ $media-query-min-width-xs: 0px;
+ $media-query-min-width-sm: 576px;
+ $media-query-min-width-md: 768px;
+ $media-query-min-width-lg: 992px;
+ $media-query-min-width-xl: 1200px;
 
- @media screen and (max-width: 500px) {
+ @media screen and (max-width: $media-query-min-width-sm) {
     .c-main {
         padding-top: 0.5rem;
     }

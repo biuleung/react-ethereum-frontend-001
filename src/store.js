@@ -10,7 +10,11 @@ const initialState = {
     isRegistered: false,
   },
   sidebarShow: 'responsive',
-  videos: { info: [{}], tags: [] }
+  videos: { info: [{}], tags: [] },
+  progressBar: {
+    step: 0,
+    fullCount: 0,
+  }
 }
 
 export const ERCProviderSlice = createSlice({
@@ -20,7 +24,7 @@ export const ERCProviderSlice = createSlice({
     setProvider: (state, action) => {
       return state = {
         ...state,
-        provider: action.payload || initialState.ERCProvider.provider
+        provider: action.payload ?? initialState.ERCProvider.provider
       }
     }
   }
@@ -46,8 +50,8 @@ export const loginInfoSlice = createSlice({
     updateAddress: (state, action) => {
       return state = {
         ...state,
-        address: action.payload.address || initialState.login.address,
-        isRegistered: action.payload.isRegistered || initialState.login.isRegistered
+        address: action.payload.address ?? initialState.login.address,
+        isRegistered: action.payload.isRegistered ?? initialState.login.isRegistered
       };
     }
   }
@@ -60,30 +64,44 @@ export const videosSlice = createSlice({
     setAllVideos: (state, action) => {
       return state = {
         ...state,
-        allVideos: action.payload || initialState.videos.info
+        allVideos: action.payload ?? initialState.videos.info
       }
     },
     setSelectedVideos: (state, action) => {
       return state = {
         ...state,
-        selectedVideos: action.payload || initialState.videos.info
+        selectedVideos: action.payload ?? initialState.videos.info
       }
     },
     setTags: (state, action) => {
       return state = {
         ...state,
-        tags: action.payload || initialState.videos.tags
+        tags: action.payload ?? initialState.videos.tags
       }
     }
   }
 })
 
+export const progressSlice = createSlice({
+  name: 'progressBar',
+  initialState: initialState.progressBar,
+  reducers: {
+    setProgress: (state, action) => {
+      return state = {
+        ...state,
+        step: action.payload?.step ?? state.step + 1,
+        fullCount: action.payload?.fullCount ?? state.fullCount
+      }
+    },
+  }
+})
 
 const reducer = combineReducers({
   ERCProvider: ERCProviderSlice.reducer,
   sidebarShow: siderbarShowSlice.reducer,
   loginInfo: loginInfoSlice.reducer,
-  videosInfo: videosSlice.reducer
+  videosInfo: videosSlice.reducer,
+  progressBar: progressSlice.reducer
 })
 
 const store = configureStore({

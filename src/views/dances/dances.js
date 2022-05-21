@@ -1,9 +1,8 @@
 import React from 'react'
+import { Redirect } from 'react-router-dom'
 
 const Dances = () => {
-  return (
-    <div>Dances</div>
-  )
+  return <Redirect to={'/dances/videos'} />
 }
 
 export default Dances

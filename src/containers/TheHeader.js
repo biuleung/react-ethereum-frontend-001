@@ -61,7 +61,7 @@ const TheHeader = () => {
       </CHeaderNav>
 
       <CHeaderNav className="px-3">
-        {false ? 'Login' : <TheHeaderDropdown />}
+        <TheHeaderDropdown></TheHeaderDropdown>
       </CHeaderNav>
 
       <CSubheader className="px-3 justify-content-between">

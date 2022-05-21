@@ -1,7 +1,7 @@
 import React from 'react'
 import Multiselect from 'multiselect-react-dropdown';
 
-export const DropdownSelect = ({ itemList, onSelect, onRemove }) => {
+export const DropdownSelect = ({ itemList, onSelect, onRemove, placeholder = 'Select' }) => {
     const options = [];
     itemList.forEach((t, i) => {
         options.push({
@@ -16,6 +16,7 @@ export const DropdownSelect = ({ itemList, onSelect, onRemove }) => {
 
     return (
         <Multiselect
+            placeholder={placeholder}
             options={state.options}
             selectedValues={state.selectedValue}
             onSelect={(e) => onSelect(e)}

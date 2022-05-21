@@ -78,7 +78,6 @@ export const videosSlice = createSlice({
   }
 })
 
-
 const reducer = combineReducers({
   ERCProvider: ERCProviderSlice.reducer,
   sidebarShow: siderbarShowSlice.reducer,

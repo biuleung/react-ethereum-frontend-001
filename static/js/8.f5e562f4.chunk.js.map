@@ -1,1 +1,0 @@
-{"version":3,"sources":["views/dashboard/Dashboard.js"],"names":["Dashboard"],"mappings":"4KAAA,wBAaeA,UAXG,WAEhB,OACE,mCACE","file":"static/js/8.f5e562f4.chunk.js","sourcesContent":["import React from 'react'\n\nconst Dashboard = () => {\n\n  return (\n    <>\n      <div>\n        Dashboard works\n      </div>\n    </>\n  )\n}\n\nexport default Dashboard\n"],"sourceRoot":""}

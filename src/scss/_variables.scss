@@ -36,6 +36,10 @@ $theme-colors: (
 	background: var(--secondary) !important;
   }
 
+.progress {
+  height: 0.5rem;
+}
+
 /**
  * z-index
  */

@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import Multiselect from 'multiselect-react-dropdown';
 
-export const DropdownSelect = ({ itemList, onSelect, onRemove, placeholder = 'Select' }) => {
+export const DropdownSelect = ({ itemList, onSelect, onRemove, placeholder = 'Select', enabledPreviousSelected = false }) => {
     const options = [];
+    const selectRef = useRef();
     itemList.forEach((t, i) => {
         options.push({
             name: t,
@@ -11,14 +12,21 @@ export const DropdownSelect = ({ itemList, onSelect, onRemove, placeholder = 'Se
     });
 
     const state = {
-        options
+        options,
     };
+
+    useEffect(() => {
+        if (enabledPreviousSelected) {
+            onSelect(selectRef.current.state.selectedValues)
+        }
+    })
 
     return (
         <Multiselect
+            ref={selectRef}
             placeholder={placeholder}
             options={state.options}
-            selectedValues={state.selectedValue}
+            closeOnSelect={false}
             onSelect={(e) => onSelect(e)}
             onRemove={(e) => onRemove(e)}
             displayValue="name"

@@ -21,6 +21,10 @@ $theme-colors: (
     --main-deepest-color: var(--primary);
 }
 
+.c-main {
+  padding-top: 1rem;
+}
+
 .c-sidebar {
     background-color: var(--dark) !important;
 } 
@@ -34,6 +38,10 @@ $theme-colors: (
 .dropdown-list .chip
   { 
 	background: var(--secondary) !important;
+  }
+
+  .progress-bar-container {
+    min-height: 0.5rem;
   }
 
 .progress {

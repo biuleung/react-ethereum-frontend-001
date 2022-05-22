@@ -7,34 +7,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { DropdownSelect } from "src/reusable/base/dropdown-select";
 import { Calculate } from "../../../reusable/calculate";
 import { v4 } from 'uuid';
+import VideoItem from "./video-item";
 //  https://multiselect-react-dropdown.vercel.app/?path=/docs/multiselect-dropdown--grouping
 
 const { setSelectedVideos, setTags } = videosSlice.actions;
 const { setProgress } = progressSlice.actions;
-
-
-const VideoItem = ({ videoUrl }) => {
-    const dispatch = useDispatch();
-
-    function Loaded() {
-        dispatch(setProgress())
-    }
-    return (
-        <>
-            <div className='videos-box' >
-                <iframe
-                    width="335px"
-                    height="250px"
-                    onLoad={Loaded}
-                    src={videoUrl}
-                    title="YouTube video player" frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen>
-                </iframe>
-            </div>
-        </>
-    )
-}
 
 const VideosBlock = () => {
     const dispatch = useDispatch();

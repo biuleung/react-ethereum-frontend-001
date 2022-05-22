@@ -14,20 +14,12 @@ const { setSelectedVideos, setTags } = videosSlice.actions;
 const { setProgress } = progressSlice.actions;
 
 const VideosBlock = () => {
-    const dispatch = useDispatch();
     const selectedVideos = useSelector(state => state.videosInfo.selectedVideos);
-    const numOfSelectedVideos = selectedVideos && selectedVideos.length;
-
-    useEffect(() => {
-        if (numOfSelectedVideos) {
-            dispatch(setProgress({ fullCount: numOfSelectedVideos }))
-        }
-    }, [dispatch, numOfSelectedVideos])
 
     return (
         <div className='vedeos-box-container'>
             <div className='vedeos-grid'>
-                {selectedVideos && selectedVideos.map((video, index) =>
+                {selectedVideos && selectedVideos.map((video) =>
                     <VideoItem key={v4()} videoUrl={video.url} />
                 )}
             </div>
@@ -36,9 +28,13 @@ const VideosBlock = () => {
 }
 
 const Videos = () => {
+    const dispatch = useDispatch();
+
     let allTags = [];
     let videoList;
     let selectedVideos = [];
+    const numOfSelectedVideos = selectedVideos && selectedVideos.length;
+
     if (Array.isArray(videoInfoListData) && videoInfoListData.length) {
         videoList = [...videoInfoListData];
         videoList.forEach(v => {
@@ -51,21 +47,25 @@ const Videos = () => {
         videoList = [...Calculate.shuffle(videoList)];
     }
 
-    const dispatch = useDispatch();
-
     useEffect(() => {
         dispatch(setTags(allTags));
         return (() => {
             dispatch(setTags([]));
         })
-    }, [dispatch, allTags])
+    }, [dispatch, allTags]);
 
     useEffect(() => {
         return (() => {
             dispatch(setSelectedVideos([]));
             dispatch(setProgress({ step: 0, fullCount: 0 }));
         })
-    }, [dispatch, videoList, selectedVideos.length])
+    }, [dispatch, videoList, selectedVideos.length]);
+
+    useEffect(() => {
+        if (numOfSelectedVideos) {
+            dispatch(setProgress({ fullCount: numOfSelectedVideos }))
+        }
+    }, [dispatch, numOfSelectedVideos])
 
     const onSelectionChange = (event) => {
         dispatch(setProgress({ step: 0, fullCount: 0 }));

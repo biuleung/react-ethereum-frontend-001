@@ -24,8 +24,16 @@ const TheHeader = () => {
 
   const { toggle, toggleMobile } = siderbarShowSlice.actions;
   const progressBar = useSelector(state => state.progressBar);
-  let currentPercentage = progressBar.step / progressBar.fullCount * 100;
-  currentPercentage = currentPercentage < 10 ?? currentPercentage ? 10 : currentPercentage;
+
+  let currentPercentage = calPercentage(progressBar);
+
+  function calPercentage(progressBar) {
+    let currentPercentage = progressBar.step / progressBar.fullCount * 100;
+
+    return (currentPercentage < 10 && progressBar.fullCount > 0) ?? currentPercentage
+      ? 10
+      : currentPercentage;
+  }
 
   function toggleSidebar() {
     dispatch(toggle());
@@ -77,10 +85,12 @@ const TheHeader = () => {
           </div>
         </CSubheader>
       </CHeader>
-      <ProgressBar
-        animated
-        now={currentPercentage}
-        hidden={currentPercentage >= 100} />
+      <div className='progress-bar-container'>
+        <ProgressBar
+          animated
+          now={currentPercentage}
+          hidden={currentPercentage >= 100 || !currentPercentage} />
+      </div>
     </>
   )
 }

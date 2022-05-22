@@ -36,8 +36,9 @@ const VideosBlock = () => {
 }
 
 const Videos = () => {
-    const allTags = [];
+    let allTags = [];
     let videoList;
+    let selectedVideos = [];
     if (Array.isArray(videoInfoListData) && videoInfoListData.length) {
         videoList = [...videoInfoListData];
         videoList.forEach(v => {
@@ -54,26 +55,23 @@ const Videos = () => {
 
     useEffect(() => {
         dispatch(setTags(allTags));
-
         return (() => {
             dispatch(setTags([]));
         })
     }, [dispatch, allTags])
 
     useEffect(() => {
-        dispatch(setSelectedVideos(videoList));
-        dispatch(setProgress({ fullCount: videoList.length }))
-
         return (() => {
             dispatch(setSelectedVideos([]));
             dispatch(setProgress({ step: 0, fullCount: 0 }));
         })
-    }, [dispatch, videoList])
+    }, [dispatch, videoList, selectedVideos.length])
 
     const onSelectionChange = (event) => {
         dispatch(setProgress({ step: 0, fullCount: 0 }));
-        const selectedVideos = videoList.filter(v => event.every(e => v.tags.includes(e.name)));
+        selectedVideos = videoList.filter(v => event.every(e => v.tags.includes(e.name)));
         dispatch(setSelectedVideos(selectedVideos));
+        dispatch(setProgress({ fullCount: selectedVideos.length }));
     }
 
     return (
@@ -84,6 +82,7 @@ const Videos = () => {
                     onSelect={onSelectionChange}
                     onRemove={onSelectionChange}
                     placeholder="Filter"
+                    enabledPreviousSelected={true}
                 />
             </div>
             {videoList && videoList.length && <VideosBlock />}

@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-import React from "react";
+import React, { useEffect } from "react";
 import './videos.scss'
 import videoInfoListData from './videos-mock-api-data.json';
 import { progressSlice, videosSlice } from "src/store";
@@ -9,11 +9,11 @@ import { Calculate } from "../../../reusable/calculate";
 import { v4 } from 'uuid';
 //  https://multiselect-react-dropdown.vercel.app/?path=/docs/multiselect-dropdown--grouping
 
-const { setAllVideos, setSelectedVideos, setTags } = videosSlice.actions;
+const { setSelectedVideos, setTags } = videosSlice.actions;
 const { setProgress } = progressSlice.actions;
 
 
-const VideoItem = ({ videoUrl, index, numOfSelectedVideos }) => {
+const VideoItem = ({ videoUrl }) => {
     const dispatch = useDispatch();
 
     function Loaded() {
@@ -39,15 +39,19 @@ const VideoItem = ({ videoUrl, index, numOfSelectedVideos }) => {
 const VideosBlock = () => {
     const dispatch = useDispatch();
     const selectedVideos = useSelector(state => state.videosInfo.selectedVideos);
-    const numOfSelectedVideos = selectedVideos.length;
-    if (numOfSelectedVideos) {
-        dispatch(setProgress({ fullCount: numOfSelectedVideos }))
-    }
+    const numOfSelectedVideos = selectedVideos && selectedVideos.length;
+
+    useEffect(() => {
+        if (numOfSelectedVideos) {
+            dispatch(setProgress({ fullCount: numOfSelectedVideos }))
+        }
+    }, [dispatch, numOfSelectedVideos])
+
     return (
         <div className='vedeos-box-container'>
             <div className='vedeos-grid'>
                 {selectedVideos && selectedVideos.map((video, index) =>
-                    <VideoItem key={v4()} videoUrl={video.url} index={index} numOfSelectedVideos={numOfSelectedVideos} />
+                    <VideoItem key={v4()} videoUrl={video.url} />
                 )}
             </div>
         </div>
@@ -70,14 +74,29 @@ const Videos = () => {
     }
 
     const dispatch = useDispatch();
-    dispatch(setAllVideos(videoList));
-    dispatch(setSelectedVideos(videoList));
-    dispatch(setTags(allTags))
+
+    useEffect(() => {
+        dispatch(setTags(allTags));
+
+        return (() => {
+            dispatch(setTags([]));
+        })
+    }, [dispatch, allTags])
+
+    useEffect(() => {
+        dispatch(setSelectedVideos(videoList));
+        dispatch(setProgress({ fullCount: videoList.length }))
+
+        return (() => {
+            dispatch(setSelectedVideos([]));
+            dispatch(setProgress({ step: 0, fullCount: 0 }));
+        })
+    }, [dispatch, videoList])
 
     const onSelectionChange = (event) => {
+        dispatch(setProgress({ step: 0, fullCount: 0 }));
         const selectedVideos = videoList.filter(v => event.every(e => v.tags.includes(e.name)));
         dispatch(setSelectedVideos(selectedVideos));
-        dispatch(setProgress({ step: 0 }))
     }
 
     return (

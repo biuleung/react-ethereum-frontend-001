@@ -4,17 +4,17 @@
     "static/js/0.2f9cc158.chunk.js": "/react-ethereum-frontend-001/static/js/0.2f9cc158.chunk.js",
     "static/js/0.2f9cc158.chunk.js.map": "/react-ethereum-frontend-001/static/js/0.2f9cc158.chunk.js.map",
     "main.css": "/react-ethereum-frontend-001/static/css/main.8c980498.chunk.css",
-    "main.js": "/react-ethereum-frontend-001/static/js/main.b151dae5.chunk.js",
-    "main.js.map": "/react-ethereum-frontend-001/static/js/main.b151dae5.chunk.js.map",
-    "runtime-main.js": "/react-ethereum-frontend-001/static/js/runtime-main.9e1394a2.js",
-    "runtime-main.js.map": "/react-ethereum-frontend-001/static/js/runtime-main.9e1394a2.js.map",
-    "static/js/3.dcef95f8.chunk.js": "/react-ethereum-frontend-001/static/js/3.dcef95f8.chunk.js",
-    "static/js/3.dcef95f8.chunk.js.map": "/react-ethereum-frontend-001/static/js/3.dcef95f8.chunk.js.map",
-    "static/js/4.ffb68c19.chunk.js": "/react-ethereum-frontend-001/static/js/4.ffb68c19.chunk.js",
-    "static/js/4.ffb68c19.chunk.js.map": "/react-ethereum-frontend-001/static/js/4.ffb68c19.chunk.js.map",
+    "main.js": "/react-ethereum-frontend-001/static/js/main.eecbbc7a.chunk.js",
+    "main.js.map": "/react-ethereum-frontend-001/static/js/main.eecbbc7a.chunk.js.map",
+    "runtime-main.js": "/react-ethereum-frontend-001/static/js/runtime-main.f18874e3.js",
+    "runtime-main.js.map": "/react-ethereum-frontend-001/static/js/runtime-main.f18874e3.js.map",
+    "static/js/3.b5209351.chunk.js": "/react-ethereum-frontend-001/static/js/3.b5209351.chunk.js",
+    "static/js/3.b5209351.chunk.js.map": "/react-ethereum-frontend-001/static/js/3.b5209351.chunk.js.map",
+    "static/js/4.29d30135.chunk.js": "/react-ethereum-frontend-001/static/js/4.29d30135.chunk.js",
+    "static/js/4.29d30135.chunk.js.map": "/react-ethereum-frontend-001/static/js/4.29d30135.chunk.js.map",
     "static/css/5.f1647b04.chunk.css": "/react-ethereum-frontend-001/static/css/5.f1647b04.chunk.css",
-    "static/js/5.7413b0ff.chunk.js": "/react-ethereum-frontend-001/static/js/5.7413b0ff.chunk.js",
-    "static/js/5.7413b0ff.chunk.js.map": "/react-ethereum-frontend-001/static/js/5.7413b0ff.chunk.js.map",
+    "static/js/5.b35b99d4.chunk.js": "/react-ethereum-frontend-001/static/js/5.b35b99d4.chunk.js",
+    "static/js/5.b35b99d4.chunk.js.map": "/react-ethereum-frontend-001/static/js/5.b35b99d4.chunk.js.map",
     "static/js/6.3e9dd175.chunk.js": "/react-ethereum-frontend-001/static/js/6.3e9dd175.chunk.js",
     "static/js/6.3e9dd175.chunk.js.map": "/react-ethereum-frontend-001/static/js/6.3e9dd175.chunk.js.map",
     "static/js/7.e7f0bf42.chunk.js": "/react-ethereum-frontend-001/static/js/7.e7f0bf42.chunk.js",
@@ -28,13 +28,13 @@
     "static/css/5.f1647b04.chunk.css.map": "/react-ethereum-frontend-001/static/css/5.f1647b04.chunk.css.map",
     "static/css/main.8c980498.chunk.css.map": "/react-ethereum-frontend-001/static/css/main.8c980498.chunk.css.map",
     "static/js/0.2f9cc158.chunk.js.LICENSE.txt": "/react-ethereum-frontend-001/static/js/0.2f9cc158.chunk.js.LICENSE.txt",
-    "static/js/3.dcef95f8.chunk.js.LICENSE.txt": "/react-ethereum-frontend-001/static/js/3.dcef95f8.chunk.js.LICENSE.txt",
-    "static/js/4.ffb68c19.chunk.js.LICENSE.txt": "/react-ethereum-frontend-001/static/js/4.ffb68c19.chunk.js.LICENSE.txt"
+    "static/js/3.b5209351.chunk.js.LICENSE.txt": "/react-ethereum-frontend-001/static/js/3.b5209351.chunk.js.LICENSE.txt",
+    "static/js/4.29d30135.chunk.js.LICENSE.txt": "/react-ethereum-frontend-001/static/js/4.29d30135.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.9e1394a2.js",
-    "static/js/3.dcef95f8.chunk.js",
+    "static/js/runtime-main.f18874e3.js",
+    "static/js/3.b5209351.chunk.js",
     "static/css/main.8c980498.chunk.css",
-    "static/js/main.b151dae5.chunk.js"
+    "static/js/main.eecbbc7a.chunk.js"
   ]
 }

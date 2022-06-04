@@ -1,5 +1,6 @@
-import { configureStore, createSlice } from '@reduxjs/toolkit';
+import {  configureStore, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { combineReducers } from "redux";
+
 
 const initialState = {
   ERCProvider: {
@@ -30,9 +31,11 @@ export const ERCProviderSlice = createSlice({
   }
 })
 
+type SiderbarState = string | boolean;
+
 export const siderbarShowSlice = createSlice({
   name: 'sidebarShow',
-  initialState: initialState.sidebarShow,
+  initialState: initialState.sidebarShow as SiderbarState,
   reducers: {
     toggle: (state, action) => {
       return state === 'responsive' ? false : "responsive"
@@ -57,16 +60,19 @@ export const loginInfoSlice = createSlice({
   }
 })
 
+type VideosState = {selectedVideos?: any, info: any, tags: [] }
+
+
 export const videosSlice = createSlice({
   name: 'videosInfo',
-  initialState: initialState.videos,
+  initialState: initialState.videos as VideosState,
   reducers: {
-    setAllVideos: (state, action) => {
-      return state = {
-        ...state,
-        allVideos: action.payload ?? initialState.videos.info
-      }
-    },
+    // setAllVideos: (state, action) => {
+    //   return state = {
+    //     ...state,
+    //     allVideos: action.payload ?? initialState.videos.info
+    //   }
+    // },
     setSelectedVideos: (state, action) => {
       return state = {
         ...state,

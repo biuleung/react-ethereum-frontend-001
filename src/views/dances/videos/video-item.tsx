@@ -1,17 +1,17 @@
 import { useDispatch } from "react-redux";
-import { progressSlice } from "src/store";
+import  { FC } from 'react';
+import { progressSlice } from "../../../store";
 
 const { setProgress } = progressSlice.actions;
 
-const VideoItem = ({ videoUrl }) => {
+const VideoItem:FC<{videoUrl?: string}> = ({ videoUrl = '' }) => {
     const dispatch = useDispatch();
-
     function Loaded() {
-        dispatch(setProgress())
+        dispatch(setProgress({}));
     }
     return (
         <>
-            <div className='videos-box' >
+            <div className='videos-box'>
                 <iframe
                     width="335px"
                     height="250px"

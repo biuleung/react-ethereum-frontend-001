@@ -33,7 +33,6 @@ const TheSidebar = () => {
         </div>
       </CSidebarBrand>
       <CSidebarNav>
-
         <CCreateElement
           items={navigation}
           components={{

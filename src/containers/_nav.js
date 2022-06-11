@@ -1,5 +1,4 @@
 import CIcon from '@coreui/icons-react'
-import { MdOutlineEmojiPeople } from 'react-icons/md';
 
 const _nav = [
   {

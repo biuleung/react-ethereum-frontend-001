@@ -1,9 +1,17 @@
 import React, { useEffect, useRef } from 'react'
 import Multiselect from 'multiselect-react-dropdown';
 
-export const DropdownSelect = ({ itemList, onSelect, onRemove, placeholder = 'Select', enabledPreviousSelected = false }) => {
-    const options = [];
-    const selectRef = useRef();
+type Props = {
+    itemList: any[],
+    onSelect: any,
+    onRemove: any,
+    placeholder: string,
+    enabledPreviousSelected: boolean
+}
+
+export const DropdownSelect: React.FunctionComponent<Props> = ({ itemList, onSelect, onRemove, placeholder = 'Select', enabledPreviousSelected = false }) => {
+    const options: any[] = [];
+    const selectRef = useRef<any>();
     itemList.forEach((t, i) => {
         options.push({
             name: t,

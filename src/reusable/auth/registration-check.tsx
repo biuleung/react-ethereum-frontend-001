@@ -1,4 +1,5 @@
 import { ethers } from "ethers"
+import { Dispatch } from "redux";
 import { ERCProviderSlice, loginInfoSlice } from "src/store";
 import * as Register from '../../contracts-info/register'
 
@@ -10,8 +11,7 @@ async function getProvider() {
     return new ethers.providers.Web3Provider(window.ethereum);
 }
 
-const RegistrationCheck = async (dispatch, addr) => {
-
+const RegistrationCheck = async (dispatch: Dispatch, addr: string) => {
     try {
         const provider = await getProvider();
         if (provider) {

@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 import { loginInfoSlice } from "src/store";
 import styles from "./metamask-auth.module.css";
 import RegistrationCheck from "./registration-check";
 import { ethers } from "ethers"
 import * as Register from '../../contracts-info/register'
+import { Dispatch } from "redux";
 
 const { updateAddress } = loginInfoSlice.actions;
 
@@ -12,7 +13,7 @@ function isMobileDevice() {
     return 'ontouchstart' in window || 'onmsgesturechange' in window;
 }
 
-async function checkConnectionToMetaMask(dispatch) {
+async function checkConnectionToMetaMask(dispatch: Dispatch) {
     if (!window.ethereum) {
         alert("Get MetaMask!");
         dispatch(updateAddress({ address: '0x' }));
@@ -26,7 +27,7 @@ async function checkConnectionToMetaMask(dispatch) {
     await RegistrationCheck(dispatch, accounts[0])
 }
 
-async function checkIfWalletIsConnected(dispatch) {
+async function checkIfWalletIsConnected(dispatch: Dispatch) {
     if (window.ethereum) {
         setUpEthereumEvent(dispatch);
         const accounts = await window.ethereum.request({
@@ -48,7 +49,7 @@ async function checkIfWalletIsConnected(dispatch) {
     }
 }
 
-async function signup(dispatch, provider, account) {
+async function signup(dispatch: Dispatch, provider: any, account: string) {
 
     if (await RegistrationCheck(dispatch, account)) {
         dispatch(updateAddress({ address: account, isRegistered: true }));
@@ -63,7 +64,7 @@ async function signup(dispatch, provider, account) {
         try {
             signupResult = await txContract.signup(options);
             // TODO show success toast
-        } catch (error) {
+        } catch (error: any) {
             // TODO show warning toast
             alert(error.message);
         } finally {
@@ -72,7 +73,7 @@ async function signup(dispatch, provider, account) {
     }
 }
 
-const accountWasChanged = async (dispatch, accounts) => {
+const accountWasChanged = async (dispatch: Dispatch, accounts: string[]) => {
     if (accounts.length > 0) {
         await RegistrationCheck(dispatch, accounts[0])
     }
@@ -81,11 +82,11 @@ const accountWasChanged = async (dispatch, accounts) => {
     }
 }
 
-const clearAccount = (dispatch) => {
+const clearAccount = (dispatch: Dispatch) => {
     dispatch(updateAddress({ address: '0x' }))
 };
 
-function setUpEthereumEvent(dispatch) {
+function setUpEthereumEvent(dispatch: Dispatch) {
     if (window.ethereum) {
         window.ethereum.on('accountsChanged', accountWasChanged.bind(null, dispatch));
         window.ethereum.on('disconnect', clearAccount.bind(null, dispatch));
@@ -99,46 +100,11 @@ function removeEthereumEvent() {
     }
 }
 
-export default function MetaMaskAuth() {
-    const dispatch = useDispatch();
-    const loginInfo = useSelector(state => state.loginInfo);
-    const ERCProvider = useSelector(state => state.ERCProvider);
-
-    useEffect(() => {
-        checkIfWalletIsConnected(dispatch);
-
-
-        return () => {
-            removeEthereumEvent();
-        }
-    }, [dispatch]);
-
-    switch (loginInfo.address && loginInfo.address !== '0x') {
-        case true:
-            if (loginInfo.isRegistered === true) {
-                return (
-                    <div className="mr-1">
-                        <Address userAddress={loginInfo.address} />
-                    </div>
-                )
-            } else {
-                return (
-                    <button
-                        className={styles.button}
-                        onClick={() => signup(dispatch, ERCProvider.provider, loginInfo.address)}>
-                        Sign up
-                    </button>)
-            }
-        case false:
-            return (
-                <ConnectToMetaMaskBtn setUserAddress={dispatch} />
-            )
-        default:
-            break;
-    }
+type ConnectToMetaMaskBtnProps = {
+    setUserAddress: Dispatch
 }
 
-function ConnectToMetaMaskBtn({ setUserAddress }) {
+const ConnectToMetaMaskBtn: React.FunctionComponent<ConnectToMetaMaskBtnProps> = ({setUserAddress} ) => {
     if (isMobileDevice()) {
         const dappUrl = "metamask-auth.ilamanov.repl.co";
         const metamaskAppDeepLink = "https://metamask.app.link/dapp/" + dappUrl;
@@ -158,8 +124,60 @@ function ConnectToMetaMaskBtn({ setUserAddress }) {
     );
 }
 
-function Address({ userAddress }) {
+type AddressProps = {
+    userAddress: string
+}
+
+const Address: React.FunctionComponent<AddressProps> = ( {userAddress}) => {
     return (
         <span className={styles.address}>{userAddress.substring(0, 5)}…{userAddress.substring(userAddress.length - 4)}</span>
     );
 }
+
+const MetaMaskAuth = () => {
+    const dispatch = useDispatch();
+    const loginInfo = useSelector((state: RootStateOrAny) => state.loginInfo);
+    const ERCProvider = useSelector((state: RootStateOrAny) => state.ERCProvider);
+
+    useEffect(() => {
+        checkIfWalletIsConnected(dispatch);
+        return () => {
+            removeEthereumEvent();
+        }
+    }, [dispatch]);
+
+    switch (loginInfo.address && loginInfo.address !== '0x') {
+        case true:
+            if (loginInfo.isRegistered === true) {
+                return (
+                <>
+                    <div className="mr-1">
+                        <Address userAddress={loginInfo.address} />
+                    </div>
+                </>
+                )
+            } else {
+                return (
+                <>
+                    <button
+                        className={styles.button}
+                        onClick={() => signup(dispatch, ERCProvider.provider, loginInfo.address)}>
+                        Sign up
+                    </button>
+                </>
+                    )
+            }
+        case false:
+            return (
+                <>
+                <ConnectToMetaMaskBtn setUserAddress={dispatch} />
+                </>
+            )
+        default:
+            return (
+                <></>
+            )
+    }
+}
+
+export default MetaMaskAuth;

@@ -1,9 +1,9 @@
 /* eslint-disable array-callback-return */
-import React, { useEffect } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import './videos.scss'
 import videoInfoListData from './videos-mock-api-data.json';
-import { progressSlice, videosSlice } from "src/store";
-import { useDispatch, useSelector } from "react-redux";
+import { progressSlice, SelectedVideo, videosSlice } from "src/store";
+import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 import { DropdownSelect } from "src/reusable/base/dropdown-select";
 import { Calculate } from "../../../reusable/calculate";
 import { v4 } from 'uuid';
@@ -14,12 +14,11 @@ const { setSelectedVideos, setTags } = videosSlice.actions;
 const { setProgress } = progressSlice.actions;
 
 const VideosBlock = () => {
-    const selectedVideos = useSelector(state => state.videosInfo.selectedVideos);
-
+    const selectedVideos = useSelector((state: RootStateOrAny) => state.videosInfo.selectedVideos);
     return (
         <div className='vedeos-box-container'>
             <div className='vedeos-grid'>
-                {selectedVideos && selectedVideos.map((video) =>
+                {selectedVideos && selectedVideos.map((video: SelectedVideo) =>
                     <VideoItem key={v4()} videoUrl={video.url} />
                 )}
             </div>
@@ -29,10 +28,9 @@ const VideosBlock = () => {
 
 const Videos = () => {
     const dispatch = useDispatch();
-
-    let allTags = [];
-    let videoList;
-    let selectedVideos = [];
+    let allTags: string[] = [];
+    let videoList: SelectedVideo[] = [];
+    let selectedVideos: SelectedVideo[] = [];
     const numOfSelectedVideos = selectedVideos && selectedVideos.length;
 
     if (Array.isArray(videoInfoListData) && videoInfoListData.length) {
@@ -47,12 +45,17 @@ const Videos = () => {
         videoList = [...Calculate.shuffle(videoList)];
     }
 
-    useEffect(() => {
-        dispatch(setTags(allTags));
-        return (() => {
-            dispatch(setTags([]));
-        })
-    }, [dispatch, allTags]);
+    const allTagsMemo = useMemo(() => {
+                dispatch(setTags(allTags));
+                return allTags;
+    }, [allTags, dispatch]);
+
+    // useEffect(() => {
+    //     dispatch(setTags(allTags));
+    //     return (() => {
+    //         dispatch(setTags([]));
+    //     })
+    // }, [dispatch, allTags]);
 
     useEffect(() => {
         return (() => {
@@ -67,7 +70,7 @@ const Videos = () => {
         }
     }, [dispatch, numOfSelectedVideos])
 
-    const onSelectionChange = (event) => {
+    const onSelectionChange = (event: {name: string, id: number}[]) => {
         dispatch(setProgress({ step: 0, fullCount: 0 }));
         selectedVideos = videoList.filter(v => event.every(e => v.tags.includes(e.name)));
         dispatch(setSelectedVideos(selectedVideos));
@@ -78,7 +81,7 @@ const Videos = () => {
         <>
             <div className="dropdown-list">
                 <DropdownSelect
-                    itemList={allTags}
+                    itemList={allTagsMemo}
                     onSelect={onSelectionChange}
                     onRemove={onSelectionChange}
                     placeholder="Filter"

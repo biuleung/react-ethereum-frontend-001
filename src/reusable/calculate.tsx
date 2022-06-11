@@ -1,6 +1,6 @@
 export class Calculate {
 
-    static shuffle(array) {
+    static shuffle(array: any[]) {
         const randomizedArray = [...array];
         try {
             for (let i = randomizedArray.length - 1; i > 0; i--) {

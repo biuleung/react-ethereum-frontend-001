@@ -1,4 +1,4 @@
-import {  configureStore, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import {  configureStore, createSlice } from '@reduxjs/toolkit';
 import { combineReducers } from "redux";
 
 
@@ -46,9 +46,15 @@ export const siderbarShowSlice = createSlice({
   }
 });
 
+
+export type Login = {
+  address: string,
+  isRegistered: boolean
+}
+
 export const loginInfoSlice = createSlice({
   name: 'loginInfo',
-  initialState: initialState.login,
+  initialState: initialState.login as Login,
   reducers: {
     updateAddress: (state, action) => {
       return state = {
@@ -60,8 +66,8 @@ export const loginInfoSlice = createSlice({
   }
 })
 
-type VideosState = {selectedVideos?: any, info: any, tags: [] }
-
+export type SelectedVideo = { id: string, url: string, tags: string[]}
+export type VideosState = {selectedVideos?: SelectedVideo[], info: any, tags: [] }
 
 export const videosSlice = createSlice({
   name: 'videosInfo',

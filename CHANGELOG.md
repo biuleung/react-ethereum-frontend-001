@@ -1,6 +1,7 @@
 ### Changelog
 
 ## 0.0.1
+    -  Added readonly property to prevent phone keyboard showing up when clicking the dropdown select
     -  Implemented lazy loading for showing the video items
     -  Applied "groupby" feature to the "dropdown-select" 
     -   Converted js file to tsx file

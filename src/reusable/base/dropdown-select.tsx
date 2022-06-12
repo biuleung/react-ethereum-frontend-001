@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import Multiselect from 'multiselect-react-dropdown';
+import $ from 'jquery';
 
 type Props = {
     itemList: any[],
@@ -25,6 +26,10 @@ export const DropdownSelect: React.FunctionComponent<Props> = ({ itemList, onSel
             onSelect(selectRef.current.state.selectedValues)
         }
     })
+
+    setTimeout(() => {
+        $('#search_input').prop('readonly', true);   
+    });
 
     return (
         <Multiselect

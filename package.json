@@ -35,6 +35,7 @@
     "dotenv": "^16.0.0",
     "enzyme": "^3.11.0",
     "ethers": "^5.6.3",
+    "jquery": "^3.6.0",
     "multiselect-react-dropdown": "^2.0.22",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
@@ -50,6 +51,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.13.14",
+    "@types/jquery": "^3.5.14",
     "@types/react-router-dom": "^5.3.3",
     "@types/uuid": "^8.3.4",
     "auto-changelog": "~2.2.1",

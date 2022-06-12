@@ -2,7 +2,7 @@
 import { useCallback, useEffect, useMemo } from "react";
 import './videos.scss'
 import videoInfoListData from './videos-mock-api-data.json';
-import { progressSlice, SelectedVideo, videosSlice } from "src/store";
+import { progressSlice, SelectedVideo, Tag, videosSlice } from "src/store";
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 import { DropdownSelect } from "src/reusable/base/dropdown-select";
 import { Calculate } from "../../../reusable/calculate";
@@ -28,7 +28,7 @@ const VideosBlock = () => {
 
 const Videos = () => {
     const dispatch = useDispatch();
-    let allTags: string[] = [];
+    let allTags: Tag[] = [];
     let videoList: SelectedVideo[] = [];
     let selectedVideos: SelectedVideo[] = [];
     const numOfSelectedVideos = selectedVideos && selectedVideos.length;
@@ -37,7 +37,7 @@ const Videos = () => {
         videoList = [...videoInfoListData];
         videoList.forEach(v => {
             v.hasOwnProperty('tags') && v.tags.forEach(t => {
-                if (!allTags.find(ts => ts === t)) {
+                if (!allTags.find(ts => ts.key === t.key)) {
                     allTags.push(t);
                 }
             })
@@ -70,9 +70,10 @@ const Videos = () => {
         }
     }, [dispatch, numOfSelectedVideos])
 
-    const onSelectionChange = (event: {name: string, id: number}[]) => {
+    const onSelectionChange = (event: {key: string, id: number}[]) => {
         dispatch(setProgress({ step: 0, fullCount: 0 }));
-        selectedVideos = videoList.filter(v => event.every(e => v.tags.includes(e.name)));
+        selectedVideos = videoList.filter(v => event.every(e => v.tags.some( t => t.key === e.key)));
+
         dispatch(setSelectedVideos(selectedVideos));
         dispatch(setProgress({ fullCount: selectedVideos.length }));
     }

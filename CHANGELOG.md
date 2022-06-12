@@ -1,6 +1,8 @@
 ### Changelog
 
 ## 0.0.1
+    -  Applied "groupby" feature to the "dropdown-select" 
+    -   Converted js file to tsx file
     -   Added TypeScript development environment to the project
     -   Added a r"egistration function" by clicking the "signup" button, which calls the the "register contract" deployed on the Ethererum Rinkeby testnet
     -   Added a "video playlist page", which embedded youtube videos on the "dance videos' page" and the show items can be filtered by tags in the dropdown list

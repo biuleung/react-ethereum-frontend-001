@@ -13,10 +13,7 @@ export const DropdownSelect: React.FunctionComponent<Props> = ({ itemList, onSel
     const options: any[] = [];
     const selectRef = useRef<any>();
     itemList.forEach((t, i) => {
-        options.push({
-            name: t,
-            id: i
-        })
+        options.push(t)
     });
 
     const state = {
@@ -37,7 +34,8 @@ export const DropdownSelect: React.FunctionComponent<Props> = ({ itemList, onSel
             closeOnSelect={false}
             onSelect={(e) => onSelect(e)}
             onRemove={(e) => onRemove(e)}
-            displayValue="name"
+            groupBy="cat"
+            displayValue="key"
         />
     )
 }

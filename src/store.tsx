@@ -66,8 +66,9 @@ export const loginInfoSlice = createSlice({
   }
 })
 
-export type SelectedVideo = { id: string, url: string, tags: string[]}
-export type VideosState = {selectedVideos?: SelectedVideo[], info: any, tags: [] }
+export type Tag = {cat: string, key: string};
+export type SelectedVideo = { id: string, url: string, tags: Tag[]}
+export type VideosState = {selectedVideos?: SelectedVideo[], info: any, tags: Tag[] }
 
 export const videosSlice = createSlice({
   name: 'videosInfo',

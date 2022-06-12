@@ -1,1 +1,0 @@
-{"version":3,"sources":["views/dashboard/Dashboard.tsx"],"names":["Dashboard"],"mappings":"qKAWeA,UAXG,WAEhB,OACE,mCACE","file":"static/js/6.870b62f9.chunk.js","sourcesContent":["const Dashboard = () => {\n\n  return (\n    <>\n      <div>\n        Dashboard works\n      </div>\n    </>\n  )\n}\n\nexport default Dashboard\n"],"sourceRoot":""}

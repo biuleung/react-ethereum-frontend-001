@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-import { useCallback, useEffect, useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import './videos.scss'
 import videoInfoListData from './videos-mock-api-data.json';
 import { progressSlice, SelectedVideo, Tag, videosSlice } from "src/store";
@@ -8,17 +8,26 @@ import { DropdownSelect } from "src/reusable/base/dropdown-select";
 import { Calculate } from "../../../reusable/calculate";
 import { v4 } from 'uuid';
 import VideoItem from "./video-item";
-//  https://multiselect-react-dropdown.vercel.app/?path=/docs/multiselect-dropdown--grouping
 
 const { setSelectedVideos, setTags } = videosSlice.actions;
 const { setProgress } = progressSlice.actions;
 
-const VideosBlock = () => {
+const VideosBlock =  () => {
     const selectedVideos = useSelector((state: RootStateOrAny) => state.videosInfo.selectedVideos);
+    const itemList: any = [];
+    if(selectedVideos){
+        for(let video of selectedVideos){
+            itemList.push(
+                <VideoItem key={v4()} videoUrl={video.url} />
+            )
+        }
+    }
+
     return (
         <div className='vedeos-box-container'>
             <div className='vedeos-grid'>
-                {selectedVideos && selectedVideos.map((video: SelectedVideo) =>
+                {/* {itemList} */}
+                {selectedVideos && selectedVideos.map((video: SelectedVideo, index: number) =>
                     <VideoItem key={v4()} videoUrl={video.url} />
                 )}
             </div>
@@ -55,14 +64,15 @@ const Videos = () => {
     //     return (() => {
     //         dispatch(setTags([]));
     //     })
-    // }, [dispatch, allTags]);
+    // // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, [dispatch]);
 
     useEffect(() => {
         return (() => {
             dispatch(setSelectedVideos([]));
             dispatch(setProgress({ step: 0, fullCount: 0 }));
         })
-    }, [dispatch, videoList, selectedVideos.length]);
+    });
 
     useEffect(() => {
         if (numOfSelectedVideos) {
@@ -89,7 +99,9 @@ const Videos = () => {
                     enabledPreviousSelected={true}
                 />
             </div>
-            {videoList && videoList.length && <VideosBlock />}
+            <div>
+                {videoList && videoList.length && <VideosBlock />}
+            </div>
         </>
     )
 }

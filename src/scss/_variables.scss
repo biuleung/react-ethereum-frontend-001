@@ -41,6 +41,8 @@ $theme-colors: (
   }
 
   .progress-bar-container {
+    position: sticky;
+    top: 105px;
     min-height: 0.5rem;
   }
 

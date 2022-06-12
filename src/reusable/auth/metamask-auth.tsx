@@ -130,7 +130,7 @@ type AddressProps = {
 
 const Address: React.FunctionComponent<AddressProps> = ( {userAddress}) => {
     return (
-        <span className={styles.address}>{userAddress.substring(0, 5)}…{userAddress.substring(userAddress.length - 4)}</span>
+        <span id='short-address' className={styles.address}>{userAddress.substring(0, 5)}…{userAddress.substring(userAddress.length - 4)}</span>
     );
 }
 

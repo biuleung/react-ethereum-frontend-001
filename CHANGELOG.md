@@ -1,6 +1,7 @@
 ### Changelog
 
 ## 0.0.1
+    -  Implemented lazy loading for showing the video items
     -  Applied "groupby" feature to the "dropdown-select" 
     -   Converted js file to tsx file
     -   Added TypeScript development environment to the project

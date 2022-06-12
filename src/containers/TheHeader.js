@@ -11,6 +11,7 @@ import {
   CBreadcrumbRouter,
 } from '@coreui/react'
 import ProgressBar from 'react-bootstrap/ProgressBar'
+
 // routes config
 import routes from '../routes'
 

@@ -20,15 +20,24 @@
     }
 }
 
-.videos-box iframe {
-    width: 335px;
-    height: 250px;
+.videos-box {
+    min-height: 150px;
 }
+
+// .videos-box iframe {
+//     width: 335px;
+//     height: 250px;
+// }
 
 .dropdown-list {
     display: flex;
     justify-content: end;
-    // width: 50%;
+    position: sticky;
+    top: 115px;
+    z-index: 1028;
+    .search-wrapper {
+        background-color: #ebedef;
+    }
 }
 
 @media screen and (max-width: var.$media-query-min-width-sm) {
@@ -47,5 +56,8 @@
     .dropdown-list {
         display: block;
         width: 100%;
+        position: sticky;
+        top: 112px;
+        z-index: 1028;
     }
   }

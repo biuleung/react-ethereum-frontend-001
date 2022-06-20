@@ -4,7 +4,14 @@ import { progressSlice } from "../../../store";
 
 const { setProgress } = progressSlice.actions;
 
-const VideoItem:FC<{ videoUrl?: string}> = ({ videoUrl = '' }) => {
+type Props = {
+    type?: string;
+    videoUrl?: string;
+    videoHeight: string;
+    videoWidth: string;
+}
+
+const VideoItem: React.FunctionComponent<Props> = ({ type = '', videoUrl = '', videoHeight, videoWidth }) => {
     const dispatch = useDispatch();
     function Loaded() {
         dispatch(setProgress({}));
@@ -37,23 +44,24 @@ const VideoItem:FC<{ videoUrl?: string}> = ({ videoUrl = '' }) => {
         }
 
         if (entries[0].isIntersecting) {
-            console.log("videoUrl: ", videoUrl);
             setShowVideo(true);
             videoObserver.disconnect();
         }
     }
 
-    
+    videoUrl = videoUrl + '?rel=0&modestbranding=1&autohide=1&showinfo=0';
+    const className = `videos-box ${type}`
     return (
         <>
-            <div className='videos-box' ref={container as React.RefObject<HTMLDivElement>}>
-                {showVideo ? <iframe
-                    width="335px"
-                    height="250px"
+            <div className={className} ref={container as React.RefObject<HTMLDivElement>}>
+                {showVideo ? 
+                <iframe
+                    width={videoWidth}
+                    height={videoHeight}
                     onLoad={Loaded}
                     src={videoUrl}
                     title="YouTube video player" frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen>
                 </iframe>: undefined
                 }

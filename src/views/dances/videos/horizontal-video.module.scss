@@ -1,0 +1,70 @@
+@use '../../../scss/variables' as var;
+
+.container {
+    ::-webkit-scrollbar {
+        height: var(--size-1);
+    }
+    ::-webkit-scrollbar-track {
+        background: none;
+    }
+    ::-webkit-scrollbar-thumb {
+        background: var(--secondary);
+    }
+}
+
+.videoScroller {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 21%;
+    gap: var(--size-1);
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-inline: contain;
+    // scroll-behavior: smooth;
+        div {
+        // padding: var(--size-1);
+        aspect-ratio: 16 / 11;
+        iframe {
+            border-radius: var(--size-1);
+        }
+    }
+}
+
+
+
+.scrollingButtons {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--size-2);
+    margin-bottom: var(--size-2);
+}
+
+.button {
+    width: var(--size-7);
+    font-size: var(--size-1);
+    display: flex;
+    justify-content: center;
+    border-radius: 50%;
+    color: var(--dark);
+    background: none;
+    svg {
+        font-size: initial;
+    }
+}
+
+@media screen and (max-width: var.$media-query-min-width-sm) {
+    .videoScroller {
+        display: grid;
+        grid-auto-flow: column;
+        gap: 0;
+        // grid-template-columns: 19%;
+        div {
+            width: 18vw;
+            aspect-ratio: unset;
+        }
+        iframe {
+            width: 19vw;
+            height: 8vh;
+        }
+    }
+  }

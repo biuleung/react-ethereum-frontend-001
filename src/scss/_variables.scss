@@ -13,6 +13,13 @@ $media-query-min-width-md: 768px;
 $media-query-min-width-lg: 992px;
 $media-query-min-width-xl: 1200px;
 
+/**
+ * z-index
+ */
+ $z-index-progress-bar: 990;
+ $z-index-navbar: 999;
+ $z-index-popover: 1060;
+
 $theme-colors: (
   "primary":    $primary,
   "secondary":  $secondary,
@@ -30,16 +37,3 @@ $theme-colors: (
     --main-gradient-color: linear-gradient(to right,var(--secondary),var(--primary));
     --main-deepest-color: var(--primary);
 }
-
-/**
- * z-index
- */
- $z-index-progress-bar: 990;
- $z-index-navbar: 999;
- $z-index-popover: 1060;
-
- @media screen and (max-width: $media-query-min-width-sm) {
-    .c-main {
-        padding-top: 0.5rem;
-    }
-  }

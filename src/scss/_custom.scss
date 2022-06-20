@@ -27,4 +27,12 @@
   .progress {
     height: 0.5rem;
   }
+
+
+
+ @media screen and (max-width: $media-query-min-width-sm) {
+    .c-main {
+        padding-top: 0.5rem;
+    }
+  }
   

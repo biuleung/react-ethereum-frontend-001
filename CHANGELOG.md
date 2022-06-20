@@ -1,9 +1,9 @@
 ### Changelog
-
 ## 0.0.1
-    -  Added readonly property to prevent phone keyboard showing up when clicking the dropdown select
-    -  Implemented lazy loading for showing the video items
-    -  Applied "groupby" feature to the "dropdown-select" 
+    -   Added a horizontal video container upon all video container
+    -   Added readonly property to prevent phone keyboard showing up when clicking the dropdown select
+    -   Implemented lazy loading for showing the video items
+    -   Applied "groupby" feature to the "dropdown-select" 
     -   Converted js file to tsx file
     -   Added TypeScript development environment to the project
     -   Added a r"egistration function" by clicking the "signup" button, which calls the the "register contract" deployed on the Ethererum Rinkeby testnet

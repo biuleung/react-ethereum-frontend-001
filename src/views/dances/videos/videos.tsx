@@ -6,29 +6,21 @@ import { progressSlice, SelectedVideo, Tag, videosSlice } from "src/store";
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 import { DropdownSelect } from "src/reusable/base/dropdown-select";
 import { Calculate } from "../../../reusable/calculate";
-import { v4 } from 'uuid';
 import VideoItem from "./video-item";
+import { HorizontalVideos } from "./horizontal-videos";
+import { v4 } from 'uuid';
 
 const { setSelectedVideos, setTags } = videosSlice.actions;
 const { setProgress } = progressSlice.actions;
 
 const VideosBlock =  () => {
     const selectedVideos = useSelector((state: RootStateOrAny) => state.videosInfo.selectedVideos);
-    const itemList: any = [];
-    if(selectedVideos){
-        for(let video of selectedVideos){
-            itemList.push(
-                <VideoItem key={v4()} videoUrl={video.url} />
-            )
-        }
-    }
 
     return (
-        <div className='vedeos-box-container'>
+        <div className='all-vedeos-box-container'>
             <div className='vedeos-grid'>
-                {/* {itemList} */}
-                {selectedVideos && selectedVideos.map((video: SelectedVideo, index: number) =>
-                    <VideoItem key={v4()} videoUrl={video.url} />
+                {selectedVideos && selectedVideos.map((video: SelectedVideo) =>
+                    <VideoItem type="all-video" key={v4()} videoUrl={video.url} videoHeight="250px" videoWidth="335px" />
                 )}
             </div>
         </div>
@@ -39,6 +31,7 @@ const Videos = () => {
     const dispatch = useDispatch();
     let allTags: Tag[] = [];
     let videoList: SelectedVideo[] = [];
+    let shuffledVideoList: SelectedVideo[] = [];
     let selectedVideos: SelectedVideo[] = [];
     const numOfSelectedVideos = selectedVideos && selectedVideos.length;
 
@@ -51,7 +44,7 @@ const Videos = () => {
                 }
             })
         });
-        videoList = [...Calculate.shuffle(videoList)];
+         shuffledVideoList = [...Calculate.shuffle(videoList)];
     }
 
     const allTagsMemo = useMemo(() => {
@@ -90,6 +83,11 @@ const Videos = () => {
 
     return (
         <>
+        <HorizontalVideos itemList={shuffledVideoList}/>
+        <div className="mt-5">
+            <div>
+                <h2>All videos</h2>
+            </div>
             <div className="dropdown-list">
                 <DropdownSelect
                     itemList={allTagsMemo}
@@ -102,6 +100,7 @@ const Videos = () => {
             <div>
                 {videoList && videoList.length && <VideosBlock />}
             </div>
+        </div>
         </>
     )
 }

@@ -10,7 +10,7 @@ const initialState = {
     address: '0x',
     isRegistered: false,
   },
-  sidebarShow: 'responsive',
+  sidebarShow: false,
   videos: { info: [{}], tags: [] },
   progressBar: {
     step: 0,

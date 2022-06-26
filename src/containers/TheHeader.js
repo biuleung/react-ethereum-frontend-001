@@ -11,13 +11,14 @@ import {
   CBreadcrumbRouter,
 } from '@coreui/react'
 import ProgressBar from 'react-bootstrap/ProgressBar'
+
 // routes config
 import routes from '../routes'
 
 import {
   TheHeaderDropdown,
 } from './index'
-import { siderbarShowSlice } from 'src/store'
+import { siderbarShowSlice } from 'src/redux/store'
 
 const TheHeader = () => {
   const dispatch = useDispatch();

@@ -1,1 +1,38 @@
 // Here you can add other styles
+.c-main {
+    padding-top: 1rem;
+  }
+  
+  .c-sidebar {
+      background-color: var(--dark) !important;
+  } 
+  
+  .c-sidebar .c-sidebar-nav-link:hover {
+      background: var(--darker) !important;
+  }
+  
+  .dropdown-list .highlightOption,
+  .dropdown-list .multiSelectContainer li:hover,
+  .dropdown-list .chip
+    { 
+      background: var(--secondary) !important;
+    }
+  
+    .progress-bar-container {
+      position: sticky;
+      top: 105px;
+      min-height: 0.5rem;
+    }
+  
+  .progress {
+    height: 0.5rem;
+  }
+
+
+
+ @media screen and (max-width: $media-query-min-width-sm) {
+    .c-main {
+        padding-top: 0.5rem;
+    }
+  }
+  

@@ -24,7 +24,7 @@ const TheHeaderDropdown = () => {
           && <CDropdownToggle className="c-header-nav-link" caret={false}>
             <div className="c-avatar">
               <CImg
-                src={'avatars/default.jpg'}
+                src={process.env.PUBLIC_URL + '/avatars/default.jpg'}
                 className="c-avatar-img"
                 alt=""
               />

@@ -1,5 +1,5 @@
 import styles from './auth.module.css';
-import MetaMaskAuth from "./metamask-auth";
+import MetaMaskAuth from './metamask-auth';
 
 function Auth() {
     return (

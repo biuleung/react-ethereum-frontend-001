@@ -1,0 +1,2 @@
+(this["webpackJsonpreact-ethereum-frontend-001"]=this["webpackJsonpreact-ethereum-frontend-001"]||[]).push([[6],{703:function(e,t,r){"use strict";r.r(t);var n=r(29);t.default=function(){return Object(n.jsx)(n.Fragment,{children:Object(n.jsx)("div",{children:"Dashboard works"})})}}}]);
+//# sourceMappingURL=6.747d5e2e.chunk.js.map

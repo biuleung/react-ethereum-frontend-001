@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
-import { loginInfoSlice } from "src/store";
+import { loginInfoSlice } from "src/redux/store";
 import styles from "./metamask-auth.module.css";
 import RegistrationCheck from "./registration-check";
 import { ethers } from "ethers"

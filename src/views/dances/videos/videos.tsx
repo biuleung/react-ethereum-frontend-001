@@ -1,108 +1,105 @@
 /* eslint-disable array-callback-return */
-import { useEffect, useMemo } from "react";
-import './videos.scss'
-import videoInfoListData from './videos-mock-api-data.json';
-import { progressSlice, SelectedVideo, Tag, videosSlice } from "src/store";
-import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
-import { DropdownSelect } from "src/reusable/base/dropdown-select";
-import { Calculate } from "../../../reusable/calculate";
-import VideoItem from "./video-item";
-import { HorizontalVideos } from "./horizontal-videos";
-import { v4 } from 'uuid';
+import { useEffect, useMemo, useState } from 'react';
+import './videos.scss';
+import { progressSlice } from 'src/redux/store';
+import { useDispatch } from 'react-redux';
+import { DropdownSelect } from 'src/reusable/base/dropdown-select';
+import { Calculate } from '../../../reusable/calculate';
+import { HorizontalVideos } from './horizontal-videos';
 
-const { setSelectedVideos, setTags } = videosSlice.actions;
+import {
+    AllVideosSlice,
+    fetchAllVideos,
+    Tag,
+    Video,
+} from 'src/redux/slices/all-videos-slice';
+import store from 'src/redux/store';
+import VideosBlock from './videos-block';
+
+const { setSelectedVideos, setTags } = AllVideosSlice.actions;
 const { setProgress } = progressSlice.actions;
-
-const VideosBlock =  () => {
-    const selectedVideos = useSelector((state: RootStateOrAny) => state.videosInfo.selectedVideos);
-
-    return (
-        <div className='all-vedeos-box-container'>
-            <div className='vedeos-grid'>
-                {selectedVideos && selectedVideos.map((video: SelectedVideo) =>
-                    <VideoItem type="all-video" key={v4()} videoUrl={video.url} videoHeight="250px" videoWidth="335px" />
-                )}
-            </div>
-        </div>
-    )
-}
 
 const Videos = () => {
     const dispatch = useDispatch();
+    const [videoList, setVideoList] = useState<Video[]>([]);
+
     let allTags: Tag[] = [];
-    let videoList: SelectedVideo[] = [];
-    let shuffledVideoList: SelectedVideo[] = [];
-    let selectedVideos: SelectedVideo[] = [];
+    let shuffledVideoList: Video[] = [];
+    let selectedVideos: Video[] = [];
     const numOfSelectedVideos = selectedVideos && selectedVideos.length;
 
-    if (Array.isArray(videoInfoListData) && videoInfoListData.length) {
-        videoList = [...videoInfoListData];
-        videoList.forEach(v => {
-            v.hasOwnProperty('tags') && v.tags.forEach(t => {
-                if (!allTags.find(ts => ts.key === t.key)) {
-                    allTags.push(t);
-                }
-            })
+    useEffect(() => {
+        const action = fetchAllVideos();
+
+        const loadVideos = async () => {
+            const result = await store.dispatch(action);
+            setVideoList(
+                Array.isArray(result.payload) && result.payload[0].data
+            );
+        };
+
+        loadVideos();
+        return () => {
+            dispatch(setSelectedVideos([]));
+            dispatch(setProgress({ step: 0, fullCount: 0 }));
+        };
+    }, [dispatch]);
+
+    if (Array.isArray(videoList) && videoList.length) {
+        videoList.forEach((v) => {
+            v.hasOwnProperty('tags') &&
+                v.tags.forEach((t: any) => {
+                    if (allTags && !allTags.find((ts) => ts.key === t.key)) {
+                        allTags.push(t);
+                    }
+                });
         });
-         shuffledVideoList = [...Calculate.shuffle(videoList)];
+        shuffledVideoList = [...Calculate.shuffle(videoList)];
     }
 
     const allTagsMemo = useMemo(() => {
-                dispatch(setTags(allTags));
-                return allTags;
+        dispatch(setTags(allTags));
+        return allTags;
     }, [allTags, dispatch]);
-
-    // useEffect(() => {
-    //     dispatch(setTags(allTags));
-    //     return (() => {
-    //         dispatch(setTags([]));
-    //     })
-    // // eslint-disable-next-line react-hooks/exhaustive-deps
-    // }, [dispatch]);
-
-    useEffect(() => {
-        return (() => {
-            dispatch(setSelectedVideos([]));
-            dispatch(setProgress({ step: 0, fullCount: 0 }));
-        })
-    });
 
     useEffect(() => {
         if (numOfSelectedVideos) {
-            dispatch(setProgress({ fullCount: numOfSelectedVideos }))
+            dispatch(setProgress({ fullCount: numOfSelectedVideos }));
         }
-    }, [dispatch, numOfSelectedVideos])
+    }, [dispatch, numOfSelectedVideos]);
 
-    const onSelectionChange = (event: {key: string, id: number}[]) => {
+    const onSelectionChange = (event: { key: string; id: number }[]) => {
         dispatch(setProgress({ step: 0, fullCount: 0 }));
-        selectedVideos = videoList.filter(v => event.every(e => v.tags.some( t => t.key === e.key)));
+        selectedVideos =
+            videoList &&
+            videoList.filter((v) =>
+                event.every((e) => v.tags.some((t) => t.key === e.key))
+            );
 
         dispatch(setSelectedVideos(selectedVideos));
         dispatch(setProgress({ fullCount: selectedVideos.length }));
-    }
+    };
 
     return (
         <>
-        <HorizontalVideos itemList={shuffledVideoList}/>
-        <div className="mt-5">
-            <div>
-                <h2>All videos</h2>
+            <HorizontalVideos itemList={shuffledVideoList} />
+            <div className="mt-5">
+                <div>
+                    <h2>All videos</h2>
+                </div>
+                <div className="dropdown-list">
+                    <DropdownSelect
+                        itemList={allTagsMemo}
+                        onSelect={onSelectionChange}
+                        onRemove={onSelectionChange}
+                        placeholder="Filter"
+                        enabledPreviousSelected={true}
+                    />
+                </div>
+                <div>{videoList && videoList.length && <VideosBlock />}</div>
             </div>
-            <div className="dropdown-list">
-                <DropdownSelect
-                    itemList={allTagsMemo}
-                    onSelect={onSelectionChange}
-                    onRemove={onSelectionChange}
-                    placeholder="Filter"
-                    enabledPreviousSelected={true}
-                />
-            </div>
-            <div>
-                {videoList && videoList.length && <VideosBlock />}
-            </div>
-        </div>
         </>
-    )
-}
+    );
+};
 
-export default Videos
+export default Videos;

@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import  { createRef, FC, useEffect, useState } from 'react';
-import { progressSlice } from "../../../store";
+import { progressSlice } from "../../../redux/store";
 
 const { setProgress } = progressSlice.actions;
 

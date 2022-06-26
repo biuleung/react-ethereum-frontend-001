@@ -33,7 +33,6 @@ $theme-colors: (
 );
 
 :root {
-    --secondary: var(--secondary);
     --main-gradient-color: linear-gradient(to right,var(--secondary),var(--primary));
     --main-deepest-color: var(--primary);
 }

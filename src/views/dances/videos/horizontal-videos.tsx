@@ -1,30 +1,31 @@
-import { SelectedVideo } from "src/store"
-import VideoItem from "./video-item";
+import VideoItem from './video-item';
 import styles from './horizontal-video.module.scss';
 import { v4 } from 'uuid';
-import {  useRef } from "react";
+import { useRef } from 'react';
+import { Video } from 'src/redux/slices/all-videos-slice';
 // import $ from 'jquery';
 // import { Button } from "react-bootstrap";
 // import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
 
 type Props = {
-    itemList: SelectedVideo[]
-}
+    itemList: Video[];
+};
 
-export const HorizontalVideos: React.FunctionComponent<Props> = ({itemList}) => {
+export const HorizontalVideos: React.FunctionComponent<Props> = ({
+    itemList,
+}) => {
     const ref = useRef<any>(null);
-//     const [isLeftScrollingBtnDisabled, setLeftScrollingBtnDisabled] = useState(false);
-//     const [isRightScrollingBtnDisabled, setRightScrollingBtnDisabled] = useState(false);
+    //     const [isLeftScrollingBtnDisabled, setLeftScrollingBtnDisabled] = useState(false);
+    //     const [isRightScrollingBtnDisabled, setRightScrollingBtnDisabled] = useState(false);
 
-//     useEffect(() => {
-//         modifyScrollingBtnsState();
-// }, []);
+    //     useEffect(() => {
+    //         modifyScrollingBtnsState();
+    // }, []);
 
-// window.addEventListener('resize', () => {
-//     $(`.${styles.rightButton}`).css({top: $('.horizontal-video')[0].offsetTop + 'px'});
-//     $(`.${styles.rightButton}`).height($('.horizontal-video')[0].offsetHeight * 0.99 + 'px');
-//    });
-
+    // window.addEventListener('resize', () => {
+    //     $(`.${styles.rightButton}`).css({top: $('.horizontal-video')[0].offsetTop + 'px'});
+    //     $(`.${styles.rightButton}`).height($('.horizontal-video')[0].offsetHeight * 0.99 + 'px');
+    //    });
 
     // const scroll = (direction: string) => {
     //     if(direction === 'left'){
@@ -38,7 +39,7 @@ export const HorizontalVideos: React.FunctionComponent<Props> = ({itemList}) => 
     //         if(ref && ref.current) {
     //             ref.current.scrollLeft += scrollOffset;
     //                     modifyScrollingBtnsState();
-               
+
     //         }
     //     }
     // }
@@ -59,10 +60,10 @@ export const HorizontalVideos: React.FunctionComponent<Props> = ({itemList}) => 
     //         }
     // }
 
-return (
-    <>
-        <div className={styles.container + " horizontal-videos"}>
-            {/* <div className={styles.scrollingButtons}>
+    return (
+        <>
+            <div className={styles.container + ' horizontal-videos'}>
+                {/* <div className={styles.scrollingButtons}>
                 <Button disabled={isLeftScrollingBtnDisabled} variant="dark" className={styles.button} onClick={() => scroll('left')}>
                     <KeyboardArrowLeft />
                     </Button>
@@ -70,12 +71,19 @@ return (
                     <KeyboardArrowRight />
                     </Button>
             </div> */}
-            <div className={styles.videoScroller} ref={ref}>
-                    {itemList && itemList.map((video: SelectedVideo) =>
-                <VideoItem type='horizontal-video' key={v4()} videoUrl={video.url} videoHeight='100%' videoWidth="100%" />
-            )}
+                <div className={styles.videoScroller} ref={ref}>
+                    {itemList &&
+                        itemList.map((video: Video) => (
+                            <VideoItem
+                                type="horizontal-video"
+                                key={v4()}
+                                videoUrl={video.url}
+                                videoHeight="100%"
+                                videoWidth="100%"
+                            />
+                        ))}
+                </div>
             </div>
-        </div>
-    </>
-)
-}
+        </>
+    );
+};

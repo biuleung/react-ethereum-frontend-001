@@ -1,0 +1,18 @@
+{
+  "tabWidth": 4,
+  "bracketSameLine": true,
+  "overrides": [
+    {
+      "files": ["*.js", "*.ts", "*.tsx"],
+      "options": {
+        "singleQuote": true
+      }
+    },
+    {
+      "files": ["*.html"],
+      "options": {
+        "singleQuote": false
+      }
+    }
+  ]
+}

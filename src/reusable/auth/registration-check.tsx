@@ -1,6 +1,6 @@
 import { ethers } from "ethers"
 import { Dispatch } from "redux";
-import { ERCProviderSlice, loginInfoSlice } from "src/store";
+import { ERCProviderSlice, loginInfoSlice } from "src/redux/store";
 import * as Register from '../../contracts-info/register'
 
 const { setProvider } = ERCProviderSlice.actions;
@@ -29,7 +29,6 @@ const RegistrationCheck = async (dispatch: Dispatch, addr: string) => {
     } catch (error) {
         return false;
     }
-
 }
 
 export default RegistrationCheck

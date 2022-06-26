@@ -1,5 +1,6 @@
 ### Changelog
 ## 0.0.1
+    -   Made a 'ApiService' that fetch all videos from the local backend serer by using Axios and Redux-thunk is employed
     -   Added a horizontal video container upon all video container
     -   Added readonly property to prevent phone keyboard showing up when clicking the dropdown select
     -   Implemented lazy loading for showing the video items

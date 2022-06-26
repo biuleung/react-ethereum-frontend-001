@@ -1,9 +1,10 @@
-@use '../../../scss/variables' as var; 
+@use "../../../scss/variables" as var;
 
 .all-vedeos-box-container {
-    margin: 7px 10% 12px 10%;
+    margin: 7px 0 12px 0;
     .vedeos-grid {
         display: grid;
+        justify-content: center;
         grid-template-columns: repeat(auto-fit, 350px);
         grid-template-rows: 250px;
         gap: 20px 20px;
@@ -13,7 +14,7 @@
             justify-content: center;
             margin: 12px 0 12px 0;
             iframe {
-            border-radius: var(--size-1);
+                border-radius: var(--size-1);
             }
         }
     }
@@ -30,8 +31,6 @@
     }
 }
 
-
-
 @media screen and (max-width: var.$media-query-min-width-sm) {
     .all-vedeos-box-container {
         margin: 7px 13px 12px -10%;
@@ -43,8 +42,8 @@
                 height: 18vh;
                 aspect-ratio: none !important;
                 iframe {
-                width: auto;
-                height: auto;
+                    width: auto;
+                    height: auto;
                 }
             }
         }
@@ -57,4 +56,8 @@
         top: 112px;
         z-index: 1028;
     }
-  }
+}
+
+@media screen and (max-width: var.$media-query-min-width-xs) {
+
+}

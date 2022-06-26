@@ -18,7 +18,7 @@ import routes from '../routes'
 import {
   TheHeaderDropdown,
 } from './index'
-import { siderbarShowSlice } from 'src/store'
+import { siderbarShowSlice } from 'src/redux/store'
 
 const TheHeader = () => {
   const dispatch = useDispatch();

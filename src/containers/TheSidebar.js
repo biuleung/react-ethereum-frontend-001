@@ -14,7 +14,7 @@ import {
 
 // sidebar nav config
 import navigation from './_nav'
-import { siderbarShowSlice } from 'src/store'
+import { siderbarShowSlice } from 'src/redux/store'
 
 const TheSidebar = () => {
   const dispatch = useDispatch();

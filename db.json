@@ -1,0 +1,102 @@
+[
+    {
+        "id": "1",
+        "url": "https://www.youtube.com/embed/gtJ47-LvX_g",
+        "tags": [
+            "Swing",
+            "Lindy hop",
+            "Taiwanese",
+            "Advanced"
+        ]
+    },
+    {
+        "id": "2",
+        "url": "https://www.youtube.com/embed/YKVsH4SjK4M",
+        "tags": [
+            "Swing",
+            "Lindy hop"
+        ]
+    },
+    {
+        "id": "4",
+        "url": "https://www.youtube.com/embed/QJFtQzXIlfA",
+        "tags": [
+            "Swing",
+            "Lindy hop",
+            "Korean"
+        ]
+    },
+    {
+        "id": "5",
+        "url": "https://www.youtube.com/embed/qjb2Y_Vbt84",
+        "tags": [
+            "Swing",
+            "Lindy hop",
+            "International"
+        ]
+    },
+    {
+        "id": "6",
+        "url": "https://www.youtube.com/embed/OyyvEUqKa7Q",
+        "tags": [
+            "Swing",
+            "Lindy hop",
+            "Taiwanese"
+        ]
+    },
+    {
+        "id": "7",
+        "url": "https://www.youtube.com/embed/dcYrA0G3yWI",
+        "tags": [
+            "Swing",
+            "Lindy hop",
+            "Taiwanese"
+        ]
+    },
+    {
+        "id": "8",
+        "url": "https://www.youtube.com/embed/PcmeGvrf2uY",
+        "tags": [
+            "Swing",
+            "Lindy hop",
+            "Taiwanese"
+        ]
+    },
+    {
+        "id": "9",
+        "url": "https://www.youtube.com/embed/nnOoRtieJjc",
+        "tags": [
+            "Swing",
+            "Lindy hop",
+            "Solo"
+        ]
+    },
+    {
+        "id": "10",
+        "url": "https://www.youtube.com/embed/vBJqsV9e-OI",
+        "tags": [
+            "Swing",
+            "Lindy hop",
+            "International"
+        ]
+    },
+    {
+        "id": "11",
+        "url": "https://www.youtube.com/embed/Ls-nNywjtPg",
+        "tags": [
+            "Swing",
+            "Lindy hop",
+            "International"
+        ]
+    },
+    {
+        "id": "12",
+        "url": "https://www.youtube.com/embed/pyGwN3NNEM0",
+        "tags": [
+            "Swing",
+            "Lindy hop",
+            "Blues",
+            "Advanced"
+        ]
+    }
+]
